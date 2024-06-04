@@ -29,4 +29,14 @@ app.use(cookieParser())//Third-Party Middleware
 // Send a response right away and stop the process.
 // Pass control to the next middleware function.
 
+
+
+// routes import
+import {router}  from "./routes/user.routes.js"
+
+// routes declaration
+
+app.use("/api/v1/users",router)
+
+
 export {app}
