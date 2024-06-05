@@ -3,7 +3,7 @@
 // import mongoose from  "mongoose";
 // import { DB_NAME } from "./constants";
 import dotenv from "dotenv";
-import connectDB from "./db/index.js";
+import {connectDB,disconnectDB} from "./db/index.js";
 import { app } from "./app.js";
 
 dotenv.config({
@@ -12,7 +12,7 @@ dotenv.config({
 
 connectDB()
   .then(() => {
-    app.listen(process.env.PORT || 8000, () => {
+    app.listen( 8000, () => {
       console.log(`server is running at port : ${process.env.PORT}`);
     });
   })
@@ -20,7 +20,24 @@ connectDB()
     console.log("MONGODB connection Failed!!!", err);
   });
 
+  const gracefulShutdown = () => {
+    disconnectDB()
+      .then(() => {
+        console.log('Server shutting down');
+        process.exit(0);
+      })
+      .catch((err) => {
+        console.error('Error during disconnection:', err);
+        process.exit(1);
+      });
+  };
+
+  process.on('SIGINT', gracefulShutdown);
+  process.on('SIGTERM', gracefulShutdown);
+
 /*
+
+
 
 import express from "express";
 const app=express()
