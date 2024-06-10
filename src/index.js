@@ -5,7 +5,8 @@
 import dotenv from "dotenv";
 import {connectDB,disconnectDB} from "./db/index.js";
 import { app } from "./app.js";
-
+import { User } from "./models/User.model.js";
+import { ApiError } from "./utils/ApiError.js";
 dotenv.config({
   path: "./env",
 });
@@ -35,7 +36,14 @@ connectDB()
   process.on('SIGINT', gracefulShutdown);
   process.on('SIGTERM', gracefulShutdown);
 
+  // app.get('/getUsers',(req,res)=>{
+  //   User.find()
+  //   .then(users=>res.json(users))
+  //   .catch((error)=>  new ApiError())
+  // })
+
 /*
+
 
 
 

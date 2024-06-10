@@ -251,11 +251,18 @@ const changeCurrentPassword = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
+  console.log(req.user);
   return res
     .status(200)
     .json(new ApiResponse(200, req.user, "current User fethched Successfully"));
 });
 
+const getUsers = asyncHandler(async (req, res) => {
+  const users = await User.find({});
+  console.log(users)
+  return res.status(200).json(new ApiResponse(200, users, "Users fetched successfully"));
+  
+});
 const updateAccountDetails = asyncHandler(async (req, res) => {
   const { fullName, username } = req.body;
 
@@ -519,5 +526,6 @@ export {
   updateUserAvatar,
   updateUserCoverImage,
   getUserChannelProfile,
-  getWatchHistory
+  getWatchHistory,
+  getUsers
 };
