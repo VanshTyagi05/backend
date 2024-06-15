@@ -33,10 +33,10 @@ app.use(cookieParser())//Third-Party Middleware
 
 // routes import
 import {router}  from "./routes/user.routes.js"
-
+import { adminrouter} from "./routes/admin.routes.js";
 // routes declaration
 
 app.use("/api/v1/users",router)
-
+app.use("/api/v1/admins",adminrouter)
 
 export {app}
